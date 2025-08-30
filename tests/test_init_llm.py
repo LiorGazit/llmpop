@@ -46,7 +46,10 @@ def test_remote_openai_with_key(monkeypatch):
 
 def test_local_ollama_chat_model(monkeypatch):
     # Ensure we don’t actually call curl/ollama
-    import subprocess, shutil, requests
+    import subprocess
+    import shutil
+    import requests
+
 
     # Pretend ollama binary exists
     monkeypatch.setattr(shutil, "which", lambda _: "/usr/bin/ollama")

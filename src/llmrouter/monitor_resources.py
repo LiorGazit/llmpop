@@ -49,5 +49,5 @@ def start_resource_monitoring(duration=3600, interval=10, logfile='resource_usag
         daemon=True
     )
     thread.start()
-    print(f"→ Resource monitoring started (daemon thread).")
+    print("→ Resource monitoring started (daemon thread).")
     return thread

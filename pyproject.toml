@@ -38,3 +38,6 @@ dev = [
 [project.urls]
 Homepage = "https://github.com/LiorGazit/LLMRouter"
 Issues = "https://github.com/LiorGazit/LLMRouter/issues"
+
+[tool.ruff]
+exclude = ["examples/*.ipynb", ".venv", "build", "dist"]

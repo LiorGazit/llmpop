@@ -13,6 +13,6 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install -e .[dev]
-      - run: ruff check .
+      - run: ruff check src tests
       - run: black --check .
       - run: pytest -q --disable-warnings --maxfail=1

@@ -54,7 +54,7 @@ Where:
 1. Install from GitHub    
 `pip install git+https://github.com/LiorGazit/LLMRouter.git`  
 
-2. Try  
+2. Try it  
     ```python
     from llmrouter import init_llm, start_resource_monitoring
     from langchain_core.prompts import ChatPromptTemplate
@@ -68,7 +68,7 @@ Where:
     print((prompt | model).invoke({"q":"What is an agent?"}).content)
     ```
 
-    3. Optional - Resource Monitoring
+ 3. Optional - Resource Monitoring
     ```python
     monitor_thread = start_resource_monitoring(duration=600, interval=10)
     ```

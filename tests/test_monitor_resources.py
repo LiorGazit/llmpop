@@ -1,4 +1,3 @@
-import os
 from llmrouter.monitor_resources import start_resource_monitoring
 
 def test_monitor_thread_starts(tmp_path, monkeypatch):
