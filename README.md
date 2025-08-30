@@ -11,36 +11,36 @@ The Python library that lets you spin up any LLM with a single function.
 Start by running `run_ollama_in_colab.ipynb` in [Colab](https://colab.research.google.com/github/LiorGazit/LLMRouter/blob/main/examples/run_ollama_in_colab.ipynb).  
 
 ## Codebase Structure  
-LLMRouter/
-├─ .github/
-│  └─ workflows/
-│     └─ ci.yml
-├─ docs/
-│  └─ index.md
-├─ examples/
-│  ├─ quickstart_local.ipynb
-│  └─ quickstart_remote_openai.ipynb
-├─ src/
-│  └─ llmrouter/
-│     ├─ __init__.py
-│     ├─ version.py
-│     ├─ init_llm.py
-│     └─ monitor_resources.py
-├─ tests/
-│  ├─ test_init_llm.py
-│  └─ test_monitor_resources.py
-├─ .gitignore
-├─ .pre-commit-config.yaml
-├─ CHANGELOG.md
-├─ CODE_OF_CONDUCT.md
-├─ CONTRIBUTING.md
-├─ DEVLOG.md
-├─ LICENSE
-├─ Makefile                   # convenient tasks
-├─ pyproject.toml
-├─ README.md
-├─ requirements-dev.txt    
-└─ requirements.txt 
+LLMRouter/  
+├─ .github/  
+│  └─ workflows/  
+│     └─ ci.yml  
+├─ docs/  
+│  └─ index.md  
+├─ examples/  
+│  ├─ quickstart_local.ipynb  
+│  └─ quickstart_remote_openai.ipynb  
+├─ src/  
+│  └─ llmrouter/  
+│     ├─ __init__.py  
+│     ├─ version.py  
+│     ├─ init_llm.py  
+│     └─ monitor_resources.py  
+├─ tests/  
+│  ├─ test_init_llm.py  
+│  └─ test_monitor_resources.py  
+├─ .gitignore  
+├─ .pre-commit-config.yaml  
+├─ CHANGELOG.md  
+├─ CODE_OF_CONDUCT.md  
+├─ CONTRIBUTING.md  
+├─ DEVLOG.md  
+├─ LICENSE  
+├─ Makefile            
+├─ pyproject.toml  
+├─ README.md  
+├─ requirements-dev.txt      
+└─ requirements.txt   
 
 Where:  
 • `src/` layout is the modern standard for packaging.  
@@ -57,19 +57,19 @@ Where:
 2. Try  
     ```python
     from llmrouter import init_llm, start_resource_monitoring
-
-    model = init_llm(chosen_llm="gemma3", local_or_remote="local")
-    # Or:
-    # model = init_llm(chosen_llm="gpt-4o", local_or_remote="remote", provider="openai", api_key="...")
-
     from langchain_core.prompts import ChatPromptTemplate
+
+    model = init_llm(model="gemma3", provider="ollama")
+    # Or:
+    # os.environ["OPENAI_API_KEY"] = "sk-..."
+    # model = init_llm(chosen_llm="gpt-4o", provider="openai")
+
     prompt = ChatPromptTemplate.from_template("Q: {q}\nA:")
-    print((prompt | model).invoke({"q":"What is an agent?"}))
+    print((prompt | model).invoke({"q":"What is an agent?"}).content)
     ```
 
     3. Optional - Resource Monitoring
     ```python
-    from monitor_resources import start_resource_monitoring
     monitor_thread = start_resource_monitoring(duration=600, interval=10)
     ```
 
