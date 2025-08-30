@@ -9,7 +9,9 @@ from typing import Any, Dict, Optional
 import requests
 
 
-def wait_for_ollama_ready(host: str = "127.0.0.1", port: int = 11434, timeout: int = 15):
+def wait_for_ollama_ready(
+    host: str = "127.0.0.1", port: int = 11434, timeout: int = 15
+):
     """Poll the Ollama HTTP endpoint until it's up or timeout."""
     url = f"http://{host}:{port}"
     for _ in range(timeout):
@@ -156,11 +158,15 @@ def init_llm(
                 raise RuntimeError(f"Error pulling '{model}': {pull.stderr}")
 
         # 5) Ensure ChatOllama is available
-        lc_ollama_mod = _ensure_package("langchain_ollama.chat_models", "langchain-ollama")
+        lc_ollama_mod = _ensure_package(
+            "langchain_ollama.chat_models", "langchain-ollama"
+        )
         ChatOllama = getattr(lc_ollama_mod, "ChatOllama")
 
         print("All done setting up Ollama (ChatOllama).\n")
-        return ChatOllama(model=model, base_url=f"http://{host}:{port}", **chat_init_kwargs)
+        return ChatOllama(
+            model=model, base_url=f"http://{host}:{port}", **chat_init_kwargs
+        )
 
     elif provider == "openai":
         print("🚀 Setting up remote OpenAI chat model…")

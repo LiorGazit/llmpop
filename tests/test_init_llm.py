@@ -50,7 +50,6 @@ def test_local_ollama_chat_model(monkeypatch):
     import shutil
     import requests
 
-
     # Pretend ollama binary exists
     monkeypatch.setattr(shutil, "which", lambda _: "/usr/bin/ollama")
 
@@ -68,12 +67,15 @@ def test_local_ollama_chat_model(monkeypatch):
     monkeypatch.setattr(
         subprocess,
         "run",
-        lambda *a, **k: types.SimpleNamespace(returncode=0, stderr="", stdout="gemma3\n"),
+        lambda *a, **k: types.SimpleNamespace(
+            returncode=0, stderr="", stdout="gemma3\n"
+        ),
     )
 
     # Mock langchain_ollama.chat_models import
     fake_mod = types.SimpleNamespace(ChatOllama=lambda **kw: ("CHAT_OLLAMA", kw))
     import builtins as _b
+
     old_import = _b.__import__
 
     def fake_import(name, *args, **kwargs):

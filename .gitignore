@@ -186,3 +186,5 @@ dist/
 .env
 .ipynb_checkpoints/
 .cache/
+running_checks.ipynb
+=*
