@@ -1,1 +1,76 @@
 # LLMRouter
+The Python library that lets you spin up any LLM with a single function.  
+
+## Features
+- Plug-and-play local LLMs via Ollama—no cloud or API costs required.  
+- Easy remote API support (OpenAI, extendable).  
+- Unified interface: Seamlessly switch between local and remote models in your code.  
+- Resource monitoring: Track CPU, memory, and (optionally) GPU usage while your agents run.
+
+## Quick start via Colab
+Start by running `run_ollama_in_colab.ipynb` in [Colab](https://colab.research.google.com/github/LiorGazit/LLMRouter/blob/main/examples/run_ollama_in_colab.ipynb).  
+
+## Codebase Structure  
+LLMRouter/
+├─ .github/
+│  └─ workflows/
+│     └─ ci.yml
+├─ docs/
+│  └─ index.md
+├─ examples/
+│  ├─ quickstart_local.ipynb
+│  └─ quickstart_remote_openai.ipynb
+├─ src/
+│  └─ llmrouter/
+│     ├─ __init__.py
+│     ├─ version.py
+│     ├─ init_llm.py
+│     └─ monitor_resources.py
+├─ tests/
+│  ├─ test_init_llm.py
+│  └─ test_monitor_resources.py
+├─ .gitignore
+├─ .pre-commit-config.yaml
+├─ CHANGELOG.md
+├─ CODE_OF_CONDUCT.md
+├─ CONTRIBUTING.md
+├─ DEVLOG.md
+├─ LICENSE
+├─ Makefile                   # convenient tasks
+├─ pyproject.toml
+├─ README.md
+├─ requirements-dev.txt    
+└─ requirements.txt 
+
+Where:  
+• `src/` layout is the modern standard for packaging.  
+• `tests/` use pytest; we’ll mock shell/network so CI doesn’t try to actually install/run Ollama.  
+• `examples/` contains notebooks users can run locally/Colab.  
+• `docs/` is optional now; you can add mkdocs later.  
+• `CI` runs lint + unit tests on pushes and PRs.  
+• `CHANGELOG` follows Keep a Changelog; DEVLOG is your running engineering journal.  
+
+## Quick setting up  
+1. Install from GitHub    
+`pip install git+https://github.com/LiorGazit/LLMRouter.git`  
+
+2. Try  
+    ```python
+    from llmrouter import init_llm, start_resource_monitoring
+
+    model = init_llm(chosen_llm="gemma3", local_or_remote="local")
+    # Or:
+    # model = init_llm(chosen_llm="gpt-4o", local_or_remote="remote", provider="openai", api_key="...")
+
+    from langchain_core.prompts import ChatPromptTemplate
+    prompt = ChatPromptTemplate.from_template("Q: {q}\nA:")
+    print((prompt | model).invoke({"q":"What is an agent?"}))
+    ```
+
+    3. Optional - Resource Monitoring
+    ```python
+    from monitor_resources import start_resource_monitoring
+    monitor_thread = start_resource_monitoring(duration=600, interval=10)
+    ```
+
+Enjoy!

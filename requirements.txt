@@ -1,0 +1,6 @@
+shutil
+subprocess
+requests
+langchain-ollama
+langchain-openai
+pytest
