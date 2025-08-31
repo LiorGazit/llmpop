@@ -76,4 +76,7 @@ print(chain.invoke({"q": "What comes first, 1 or 2?"}))
 
 * **Missing `OPENAI_API_KEY`** → set env var or pass `provider_kwargs={"api_key": "..."}`
 * **Connection refused on `http://127.0.0.1:11434`** → Ollama not serving; keep `auto_serve=True` or run `ollama serve`
-* **Model not found in Ollama** → set `pull=True` or `ollama pull <model>`
+* **Model not found in Ollama** → set `pull=True` or `ollama pull <model>`  
+
+## Other Exports
+- `__version__` — current package version string.
