@@ -8,7 +8,14 @@ The Python library that lets you spin up any LLM with a single function.
 - Plug-and-play local LLMs via Ollama—no cloud or API costs required.  
 - Easy remote API support (OpenAI, extendable).  
 - Unified interface: Seamlessly switch between local and remote models in your code.  
-- Resource monitoring: Track CPU, memory, and (optionally) GPU usage while your agents run.
+- Resource monitoring: Track CPU, memory, and (optionally) GPU usage while your agents run.  
+
+## Using LLMRouter while coding with an LLM/chatbot  
+A dedicated, machine readable guide file, is designed to be the one single necessary file for a bot to get to know LLMRouter and to build your code with it.  
+This guide file is **`LLM_READABLE_GUIDE.md`**   
+So, either upload this file to your bot's conversation, or copy the file's content to paste for the bot's context, and it would allow your bot to leverage LLMRouter as it builds code.  
+Note that this machine readable file is super useful in cases that your bot doesn't have access to the internet and can't learn about code libraries it wasn't trained on.  
+More on this guide file in `docs/index.md`  
 
 ## Quick start via Colab
 Start by running `run_ollama_in_colab.ipynb` in [Colab](https://colab.research.google.com/github/LiorGazit/LLMRouter/blob/main/examples/run_ollama_in_colab.ipynb).  
@@ -31,6 +38,7 @@ LLMRouter/
 │     └─ monitor_resources.py  
 ├─ tests/  
 │  ├─ test_init_llm.py  
+│  ├─ test_llm_readable_guide.py  
 │  └─ test_monitor_resources.py  
 ├─ .gitignore  
 ├─ .pre-commit-config.yaml  
@@ -39,6 +47,7 @@ LLMRouter/
 ├─ CONTRIBUTING.md  
 ├─ DEVLOG.md  
 ├─ LICENSE  
+├─ LLM_READABLE_GUIDE.md   
 ├─ Makefile            
 ├─ pyproject.toml  
 ├─ README.md  

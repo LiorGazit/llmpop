@@ -79,6 +79,22 @@ examples/              # Jupyter notebooks with demos
 docs/                  # Documentation
 ```
 
+## Using LLMRouter while coding with an LLM/chatbot  
+A dedicated, machine readable guide file, is designed to be the one single necessary file for a bot to get to know LLMRouter and to build your code with it.  
+This guide file is **`LLM_READABLE_GUIDE.md`**   
+So, either upload this file to your bot's conversation, or copy the file's content to paste for the bot's context, and it would allow your bot to leverage LLMRouter as it builds code.  
+Note that this machine readable file is super useful in cases that your bot doesn't have access to the internet and can't learn about code libraries it wasn't trained on.  
+
+#### Maintaining `LLM_READABLE_GUIDE.md` and keeping it up to date
+To make sure the guide file doesn't "drift":  
+I check that all the functions in `__all__` appear in the guide file.  
+Simple logic (plain English):  
+- Import `llmrouter`, read `llmrouter.__all__`
+- Read `LLM_READABLE_GUIDE.md`
+- Assert each `name` from `__all__` appears in the file  
+
+This logic is asserted in the test file `tests/test_llm_readable_guide.py`  
+
 ---
 
 ## 🤝 Contributing
