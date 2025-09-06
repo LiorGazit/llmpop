@@ -2,7 +2,7 @@ import builtins
 import types
 import pytest
 
-from llmrouter.init_llm import init_llm
+from llm_router.init_llm import init_llm
 
 
 def test_remote_openai_requires_key(monkeypatch):

@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "llmrouter"                       # PyPI-normalized, keep lowercase
+name = "llm_router"                       # PyPI-normalized, keep lowercase
 version = "0.2.0"
 description = "The Python library that lets you spin up any LLM with a single function. Route between local and remote LLMs with a unified interface"
 readme = "README.md"
@@ -36,8 +36,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/LiorGazit/LLMRouter"
-Issues = "https://github.com/LiorGazit/LLMRouter/issues"
+Homepage = "https://github.com/LiorGazit/llm_router"
+Issues = "https://github.com/LiorGazit/llm_router/issues"
 
 [tool.ruff]
 exclude = ["examples/*.ipynb", ".venv", "build", "dist"]
