@@ -24,12 +24,13 @@ def wait_for_ollama_ready(
     raise RuntimeError(f"Ollama server at {url} failed to start within {timeout}s.")
 
 
-def _ensure_package(pkg_import: str, pip_name: str):
+def _ensure_package(pkg_import: str, pip_name: str, *, verbose: bool = True):
     """Import a package, installing it if missing."""
     try:
         return __import__(pkg_import, fromlist=["*"])
     except ImportError:
-        print(f"Installing {pip_name}...")
+        if verbose:
+            print(f"Installing {pip_name}...")
         res = subprocess.run(
             f"pip install -U {pip_name}",
             capture_output=True,
@@ -39,6 +40,7 @@ def _ensure_package(pkg_import: str, pip_name: str):
         if res.returncode != 0:
             raise RuntimeError(f"Error installing {pip_name}: {res.stderr}")
         return __import__(pkg_import, fromlist=["*"])
+
 
 
 def _resolve_openai_api_key(explicit_key: Optional[str]) -> str:
@@ -58,7 +60,8 @@ def init_llm(
     model: str,
     provider: str,
     provider_kwargs: Optional[Dict[str, Any]] = None,
-    **chat_init_kwargs: Any,
+    verbose: bool = True,
+    **chat_init_kwargs: Any
 ):
     """
     Create and return a LangChain **ChatModel** for the given provider.
@@ -83,6 +86,8 @@ def init_llm(
               {
                 "api_key": "...",     # else taken from OPENAI_API_KEY env var
               }
+    verbose : bool, optional
+        If True (default), print progress messages; errors are always raised.
     **chat_init_kwargs :
         Extra kwargs passed to the underlying LangChain ChatModel constructor
         (e.g., temperature=0.0).
@@ -113,7 +118,7 @@ def init_llm(
         # 1) Ensure Ollama binary exists (if requested)
         if shutil.which("ollama") is None:
             if auto_install:
-                print("🚀 Installing Ollama...")
+                if verbose: print("🚀 Installing Ollama...")
                 install = subprocess.run(
                     "curl https://ollama.ai/install.sh | sh",
                     capture_output=True,
@@ -130,7 +135,7 @@ def init_llm(
 
         # 2) Start Ollama serve (if requested)
         if auto_serve:
-            print("🚀 Starting Ollama server...")
+            if verbose: print("🚀 Starting Ollama server...")
             serve_cmd = f"OLLAMA_HOST={host}:{port} ollama serve > serve.log 2>&1 &"
             proc = subprocess.Popen(
                 serve_cmd,
@@ -138,16 +143,16 @@ def init_llm(
                 stderr=subprocess.PIPE,
                 shell=True,
             )
-            print(f"→ Ollama PID: {proc.pid}")
+            if verbose: print(f"→ Ollama PID: {proc.pid}")
 
             # 3) Wait until it’s ready
-            print("⏳ Waiting for Ollama to be ready…")
+            if verbose: print("⏳ Waiting for Ollama to be ready…")
             wait_for_ollama_ready(host=host, port=port)
-            print("Ready!\n")
+            if verbose: print("Ready!\n")
 
         # 4) Pull the requested model (if requested)
         if do_pull:
-            print(f"🚀 Pulling model '{model}'…")
+            if verbose: print(f"🚀 Pulling model '{model}'…")
             pull = subprocess.run(
                 f"ollama pull {model}",
                 capture_output=True,
@@ -169,7 +174,7 @@ def init_llm(
         )
 
     elif provider == "openai":
-        print("🚀 Setting up remote OpenAI chat model…")
+        if verbose: print("🚀 Setting up remote OpenAI chat model…")
 
         # Ensure ChatOpenAI is available
         lc_openai_mod = _ensure_package("langchain_openai", "langchain-openai")
