@@ -3,6 +3,13 @@ All notable changes to this project will be documented here.
 
 The format is based on Keep a Changelog and this project adheres to Semantic Versioning.
 
+## [0.2.1] - 2025-09-05
+### Added
+- `verbose` flag to `init_llm()` to allow users to minimize output.
+  - Default `verbose=True` preserves current behavior.
+  - `verbose=False` silences progress messages; only errors are raised.
+
+
 ## [0.2.0] - 2025-08-31
 - docs: add LLM_READABLE_GUIDE.md (single-file chatbot guide)
 - tests: add tests/test_llm_readable_guide.py to ensure guide stays in sync with __all__

@@ -8,7 +8,7 @@
 from llm_router import init_llm
 from langchain_core.prompts import ChatPromptTemplate
 
-model = init_llm(model="gemma3", provider="ollama", provider_kwargs={"pull": True}, temperature=0.0)
+model = init_llm(model="gemma3", provider="ollama", provider_kwargs={"pull": True}, temperature=0.0, verbose=False)
 prompt = ChatPromptTemplate.from_template("Q: {q}\nA:")
 print((prompt | model).invoke({"q": "What comes first, 1 or 2?"}).content)
 ```
@@ -43,8 +43,6 @@ print(chain.invoke({"q": "What comes first, 1 or 2?"}))
 
 * `start_resource_monitoring(logfile: str = "resource_usage.log", duration: int = 3600, interval: int = 10) -> threading.Thread`
   Starts a daemon thread logging CPU/Mem/GPU usage; returns the thread.
-
-> Note: `spin_up_LLM()` is deprecated; use `init_llm()`.
 
 ---
 

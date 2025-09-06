@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm_router"                       # PyPI-normalized, keep lowercase
-version = "0.2.0"
+version = "0.2.1"
 description = "The Python library that lets you spin up any LLM with a single function. Route between local and remote LLMs with a unified interface"
 readme = "README.md"
 requires-python = ">=3.9"
