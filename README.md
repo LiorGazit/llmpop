@@ -2,7 +2,7 @@
 The Python library that lets you spin up any LLM with a single function.  
 
 ### Devs: [Lior Gazit](https://github.com/LiorGazit), and GPT5  
-*Hours spent in total on this project so far: `10 hours`  
+*Hours spent in total on this project so far: `12 hours`  
 
 ## Features
 - Plug-and-play local LLMs via Ollama—no cloud or API costs required.  
