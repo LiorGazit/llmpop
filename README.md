@@ -1,8 +1,8 @@
-# LLMRouter
+# LLM-Router
 The Python library that lets you spin up any LLM with a single function.  
 
 ### Devs: [Lior Gazit](https://github.com/LiorGazit), and GPT5  
-*Hours spent in total on this project so far: `10 hours`  
+*Hours spent in total on this project so far: `12 hours`  
 
 ## Features
 - Plug-and-play local LLMs via Ollama—no cloud or API costs required.  
@@ -10,18 +10,18 @@ The Python library that lets you spin up any LLM with a single function.
 - Unified interface: Seamlessly switch between local and remote models in your code.  
 - Resource monitoring: Track CPU, memory, and (optionally) GPU usage while your agents run.  
 
-## Using LLMRouter while coding with an LLM/chatbot  
-A dedicated, machine readable guide file, is designed to be the one single necessary file for a bot to get to know LLMRouter and to build your code with it.  
+## Using LLM-Router while coding with an LLM/chatbot  
+A dedicated, machine readable guide file, is designed to be the one single necessary file for a bot to get to know LLM-Router and to build your code with it.  
 This guide file is **`LLM_READABLE_GUIDE.md`**   
-So, either upload this file to your bot's conversation, or copy the file's content to paste for the bot's context, and it would allow your bot to leverage LLMRouter as it builds code.  
+So, either upload this file to your bot's conversation, or copy the file's content to paste for the bot's context, and it would allow your bot to leverage LLM-Router as it builds code.  
 Note that this machine readable file is super useful in cases that your bot doesn't have access to the internet and can't learn about code libraries it wasn't trained on.  
 More on this guide file in `docs/index.md`  
 
 ## Quick start via Colab
-Start by running `run_ollama_in_colab.ipynb` in [Colab](https://colab.research.google.com/github/LiorGazit/LLMRouter/blob/main/examples/run_ollama_in_colab.ipynb).  
+Start by running `run_ollama_in_colab.ipynb` in [Colab](https://colab.research.google.com/github/LiorGazit/llm_router/blob/main/examples/run_ollama_in_colab.ipynb).  
 
 ## Codebase Structure  
-LLMRouter/  
+llm_router/  
 ├─ .github/  
 │  └─ workflows/  
 │     └─ ci.yml  
@@ -31,7 +31,7 @@ LLMRouter/
 │  ├─ quickstart_local.ipynb  
 │  └─ quickstart_remote_openai.ipynb  
 ├─ src/  
-│  └─ llmrouter/  
+│  └─ llm_router/  
 │     ├─ __init__.py  
 │     ├─ version.py  
 │     ├─ init_llm.py  
@@ -64,11 +64,11 @@ Where:
 
 ## Quick setting up  
 1. Install from GitHub    
-`pip install git+https://github.com/LiorGazit/LLMRouter.git`  
+`pip install git+https://github.com/LiorGazit/llm_router.git`  
 
 2. Try it  
     ```python
-    from llmrouter import init_llm, start_resource_monitoring
+    from llm_router import init_llm, start_resource_monitoring
     from langchain_core.prompts import ChatPromptTemplate
 
     model = init_llm(model="gemma3", provider="ollama")
