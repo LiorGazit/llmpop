@@ -42,7 +42,6 @@ def _ensure_package(pkg_import: str, pip_name: str, *, verbose: bool = True):
         return __import__(pkg_import, fromlist=["*"])
 
 
-
 def _resolve_openai_api_key(explicit_key: Optional[str]) -> str:
     """Resolve OpenAI API key with precedence: explicit > env var."""
     if explicit_key:
@@ -61,7 +60,7 @@ def init_llm(
     provider: str,
     provider_kwargs: Optional[Dict[str, Any]] = None,
     verbose: bool = True,
-    **chat_init_kwargs: Any
+    **chat_init_kwargs: Any,
 ):
     """
     Create and return a LangChain **ChatModel** for the given provider.
@@ -118,7 +117,7 @@ def init_llm(
         # 1) Ensure Ollama binary exists (if requested)
         if shutil.which("ollama") is None:
             if auto_install:
-                if verbose: 
+                if verbose:
                     print("🚀 Installing Ollama...")
                 install = subprocess.run(
                     "curl https://ollama.ai/install.sh | sh",
@@ -136,7 +135,7 @@ def init_llm(
 
         # 2) Start Ollama serve (if requested)
         if auto_serve:
-            if verbose: 
+            if verbose:
                 print("🚀 Starting Ollama server...")
             serve_cmd = f"OLLAMA_HOST={host}:{port} ollama serve > serve.log 2>&1 &"
             proc = subprocess.Popen(
@@ -145,19 +144,19 @@ def init_llm(
                 stderr=subprocess.PIPE,
                 shell=True,
             )
-            if verbose: 
+            if verbose:
                 print(f"→ Ollama PID: {proc.pid}")
 
             # 3) Wait until it’s ready
-            if verbose: 
+            if verbose:
                 print("⏳ Waiting for Ollama to be ready…")
             wait_for_ollama_ready(host=host, port=port)
-            if verbose: 
+            if verbose:
                 print("Ready!\n")
 
         # 4) Pull the requested model (if requested)
         if do_pull:
-            if verbose: 
+            if verbose:
                 print(f"🚀 Pulling model '{model}'…")
             pull = subprocess.run(
                 f"ollama pull {model}",
@@ -180,7 +179,7 @@ def init_llm(
         )
 
     elif provider == "openai":
-        if verbose: 
+        if verbose:
             print("🚀 Setting up remote OpenAI chat model…")
 
         # Ensure ChatOpenAI is available
