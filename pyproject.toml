@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "llm_router"                       # PyPI-normalized, keep lowercase
 version = "0.2.1"
-description = "The Python library that lets you spin up any LLM with a single function. Route between local and remote LLMs with a unified interface"
+description = "The Python library that lets you spin up any LLM with a single function. Route between local and remote LLMs with a unified interface."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
@@ -16,6 +16,13 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
 ]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["llm_router*"]
+
+[tool.setuptools.package-data]
+llm_router = ["py.typed"]
 
 dependencies = [
   "requests>=2.31.0",
