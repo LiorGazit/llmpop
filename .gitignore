@@ -187,4 +187,5 @@ dist/
 .ipynb_checkpoints/
 .cache/
 running_checks.ipynb
+notebook_for_bash_commands.ipynb
 =*
