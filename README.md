@@ -1,24 +1,24 @@
-# LLM-Router
+# LLMPop
 The Python library that lets you spin up any LLM with a single function.  
 **Why did we need this library:**  
 1. Needed a single simple command for any LLM, including the free local LLMs that Ollama offers.  
-2. Needed a better way for introducing a code library to a LLM that helps you build code. The `llm_router` library comes with a machine-readable file that is minimal and sufficent, see `LLM_READABLE_GUIDE.md`. 
-   Add it to your conversation with the coding LLM and it will learn how to build code with `llm_router`. From a security aspect, this approach is safer then directing your LLM to read someone's entire codebase.  
+2. Needed a better way for introducing a code library to a LLM that helps you build code. The `llmpop` library comes with a machine-readable file that is minimal and sufficent, see `LLM_READABLE_GUIDE.md`. 
+   Add it to your conversation with the coding LLM and it will learn how to build code with `llmpop`. From a security aspect, this approach is safer then directing your LLM to read someone's entire codebase.  
 
 ### Devs: [Lior Gazit](https://github.com/LiorGazit), and GPT5  
 *Total hours spent in total on this project so far: `14 hours`   
 
-### Quick run of LLM-Router:  
+### Quick run of LLMPop:  
 Quickest on Colab:  
-<a target="_blank" href="https://colab.research.google.com/github/LiorGazit/llm_router/blob/main/examples/quick_run_llm_router.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/LiorGazit/llmpop/blob/main/examples/quick_run_llmpop.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>  
 Or if you want to set it up yourself, pick the free `T4 GPU`, and copy code over:    
 ```python
-print("Installing llm_router:")
-%pip -q install git+https://github.com/LiorGazit/llm_router.git 
-print("Done installing llm_router.\n")
-from llm_router import init_llm, start_resource_monitoring
+print("Installing llmpop:")
+%pip -q install git+https://github.com/LiorGazit/llmpop.git 
+print("Done installing llmpop.\n")
+from llmpop import init_llm, start_resource_monitoring
 from langchain_core.prompts import ChatPromptTemplate
 
 # Spinning up OpenAI's free GPT-OSS-20B, give it a few minutes, it's worth it.
@@ -35,28 +35,28 @@ print((prompt | model).invoke({"q":user_prompt}).content)
 - Unified interface: Seamlessly switch between local and remote models in your code.  
 - Resource monitoring: Track CPU, memory, and (optionally) GPU usage while your agents run.  
 
-## Using LLM-Router while coding with an LLM/chatbot  
-A dedicated, machine readable guide file, is designed to be the one single necessary file for a bot to get to know LLM-Router and to build your code with it.  
+## Using LLMPop while coding with an LLM/chatbot  
+A dedicated, machine readable guide file, is designed to be the one single necessary file for a bot to get to know LLMPop and to build your code with it.  
 This guide file is **`LLM_READABLE_GUIDE.md`**   
-So, either upload this file to your bot's conversation, or copy the file's content to paste for the bot's context, and it would allow your bot to leverage LLM-Router as it builds code.  
+So, either upload this file to your bot's conversation, or copy the file's content to paste for the bot's context, and it would allow your bot to leverage LLMPop as it builds code.  
 Note that this machine readable file is super useful in cases that your bot doesn't have access to the internet and can't learn about code libraries it wasn't trained on.  
 More on this guide file in `docs/index.md`  
 
 ## Quick start via Colab
-Start by running `run_ollama_in_colab.ipynb` in [Colab](https://colab.research.google.com/github/LiorGazit/llm_router/blob/main/examples/run_ollama_in_colab.ipynb).  
+Start by running `run_ollama_in_colab.ipynb` in [Colab](https://colab.research.google.com/github/LiorGazit/llmpop/blob/main/examples/run_ollama_in_colab.ipynb).  
 
 ## Codebase Structure  
-llm_router/  
+llmpop/  
 ├─ .github/  
 │  └─ workflows/  
 │     └─ ci.yml  
 ├─ docs/  
 │  └─ index.md  
 ├─ examples/  
-│  ├─ quick_run_llm_router.py  
+│  ├─ quick_run_llmpop.py  
 │  └─ run_ollama_in_colab.ipynb  
 ├─ src/  
-│  └─ llm_router/  
+│  └─ llmpop/  
 │     ├─ __init__.py  
 │     ├─ init_llm.py   
 │     ├─ monitor_resources.py  
@@ -89,11 +89,11 @@ Where:
 
 ## Quick setting up  
 1. Install from GitHub    
-`pip install git+https://github.com/LiorGazit/llm_router.git`  
+`pip install git+https://github.com/LiorGazit/llmpop.git`  
 
 2. Try it  
     ```python
-    from llm_router import init_llm, start_resource_monitoring
+    from llmpop import init_llm, start_resource_monitoring
     from langchain_core.prompts import ChatPromptTemplate
 
     model = init_llm(model="gemma3:1b", provider="ollama")

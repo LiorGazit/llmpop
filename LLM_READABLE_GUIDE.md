@@ -1,11 +1,11 @@
-# LLM-Router — One-File Guide (for Chatbots & Humans)
+# LLMPop — One-File Guide (for Chatbots & Humans)
 
 **Purpose:** single file to copy-paste into chatbots.  
-**Install:** `pip install git+https://github.com/LiorGazit/llm_router.git`
+**Install:** `pip install git+https://github.com/LiorGazit/llmpop.git`
 
 ## Quickstart — Ollama (local)
 ```python
-from llm_router import init_llm
+from llmpop import init_llm
 from langchain_core.prompts import ChatPromptTemplate
 
 model = init_llm(model="gemma3", provider="ollama", provider_kwargs={"pull": True}, temperature=0.0, verbose=False)
@@ -16,7 +16,7 @@ print((prompt | model).invoke({"q": "What comes first, 1 or 2?"}).content)
 ## Quickstart — OpenAI (remote)
 
 ```python
-from llm_router import init_llm
+from llmpop import init_llm
 from langchain_core.prompts import ChatPromptTemplate
 import os
 

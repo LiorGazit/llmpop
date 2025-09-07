@@ -1,6 +1,6 @@
-# LLM-Router Documentation
+# LLMPop Documentation
 
-LLM-Router is a lightweight Python library that provides a unified interface to **route between local and remote LLMs**.  
+LLMPop is a lightweight Python library that provides a unified interface to **route between local and remote LLMs**.  
 It lets you spin up **local models via Ollama** or connect to **remote providers like OpenAI**, with the same API surface.  
 It also includes utilities for monitoring system resource usage while your models run.
 
@@ -21,7 +21,7 @@ It also includes utilities for monitoring system resource usage while your model
 ### From GitHub (latest):
 
 ```bash
-pip install git+https://github.com/LiorGazit/llm_router.git
+pip install git+https://github.com/LiorGazit/llmpop.git
 ```
 
 ---
@@ -31,7 +31,7 @@ pip install git+https://github.com/LiorGazit/llm_router.git
 ### Local model with Ollama
 
 ```python
-from llm_router import init_llm
+from llmpop import init_llm
 
 model = init_llm(chosen_llm="gemma3", local_or_remote="local")
 
@@ -44,7 +44,7 @@ print((prompt | model).invoke({"q": "What is an agent?"}))
 ### Remote model with OpenAI
 
 ```python
-from llm_router import init_llm
+from llmpop import init_llm
 import os
 
 os.environ["OPENAI_API_KEY"] = "sk-..."
@@ -62,7 +62,7 @@ model = init_llm(
 ## 📊 Resource Monitoring
 
 ```python
-from llm_router import start_resource_monitoring
+from llmpop import start_resource_monitoring
 
 # Logs CPU, memory, GPU usage every 10s for 1h
 monitor_thread = start_resource_monitoring(duration=3600, interval=10)
@@ -73,23 +73,23 @@ monitor_thread = start_resource_monitoring(duration=3600, interval=10)
 ## 📂 Project Structure
 
 ```
-src/llm_router/         # Library code
+src/llmpop/         # Library code
 tests/                 # Pytest-based tests
 examples/              # Jupyter notebooks with demos
 docs/                  # Documentation
 ```
 
-## Using LLM-Router while coding with an LLM/chatbot  
-A dedicated, machine readable guide file, is designed to be the one single necessary file for a bot to get to know LLM-Router and to build your code with it.  
+## Using LLMPop while coding with an LLM/chatbot  
+A dedicated, machine readable guide file, is designed to be the one single necessary file for a bot to get to know LLMPop and to build your code with it.  
 This guide file is **`LLM_READABLE_GUIDE.md`**   
-So, either upload this file to your bot's conversation, or copy the file's content to paste for the bot's context, and it would allow your bot to leverage LLM-Router as it builds code.  
+So, either upload this file to your bot's conversation, or copy the file's content to paste for the bot's context, and it would allow your bot to leverage LLMPop as it builds code.  
 Note that this machine readable file is super useful in cases that your bot doesn't have access to the internet and can't learn about code libraries it wasn't trained on.  
 
 #### Maintaining `LLM_READABLE_GUIDE.md` and keeping it up to date
 To make sure the guide file doesn't "drift":  
 I check that all the functions in `__all__` appear in the guide file.  
 Simple logic (plain English):  
-- Import `llm_router`, read `llm_router.__all__`
+- Import `llmpop`, read `llmpop.__all__`
 - Read `LLM_READABLE_GUIDE.md`
 - Assert each `name` from `__all__` appears in the file  
 

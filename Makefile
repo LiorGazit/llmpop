@@ -21,7 +21,7 @@ lint:
 
 # Run tests
 test:
-\tpytest -q --disable-warnings --maxfail=1 --cov=llm_router tests/
+\tpytest -q --disable-warnings --maxfail=1 --cov=llmpop tests/
 
 # Build distribution
 build:
