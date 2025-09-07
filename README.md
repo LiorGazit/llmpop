@@ -1,8 +1,28 @@
-# LLMRouter
+# LLM-Router
 The Python library that lets you spin up any LLM with a single function.  
+**Why did we need this library:**  
+1. Needed a single simple command for any LLM, including the free local LLMs that Ollama offers.  
+2. Needed a better way for introducing a code library to a LLM that helps you build code. The `llm_router` library comes with a machine-readable file that is minimal and sufficent, see `LLM_READABLE_GUIDE.md`. 
+   Add it to your conversation with the coding LLM and it will learn how to build code with `llm_router`. From a security aspect, this approach is safer then directing your LLM to read someone's entire codebase.  
 
 ### Devs: [Lior Gazit](https://github.com/LiorGazit), and GPT5  
-*Hours spent in total on this project so far: `10 hours`  
+*Total hours spent in total on this project so far: `14 hours`   
+
+### Quick run of LLM-Router:  
+Quickest on Colab (In Edit, pick the free `T4 GPU`), just copy and paste:  
+```python
+print("Installing llm_router:")
+%pip -q install git+https://github.com/LiorGazit/llm_router.git 
+print("Done installing llm_router.\n")
+from llm_router import init_llm, start_resource_monitoring
+from langchain_core.prompts import ChatPromptTemplate
+
+# Spinning up OpenAI's free GPT-OSS-20B, give it a few minutes, it's worth it:
+model = init_llm(model="gpt-oss:20b", provider="ollama")
+
+prompt = ChatPromptTemplate.from_template("Q: {q}\nA:")
+print((prompt | model).invoke({"q":"What OS is better for deploying high scale programs in production? Linux, or Windows?"}).content)
+```
 
 ## Features
 - Plug-and-play local LLMs via Ollama—no cloud or API costs required.  
@@ -10,32 +30,32 @@ The Python library that lets you spin up any LLM with a single function.
 - Unified interface: Seamlessly switch between local and remote models in your code.  
 - Resource monitoring: Track CPU, memory, and (optionally) GPU usage while your agents run.  
 
-## Using LLMRouter while coding with an LLM/chatbot  
-A dedicated, machine readable guide file, is designed to be the one single necessary file for a bot to get to know LLMRouter and to build your code with it.  
+## Using LLM-Router while coding with an LLM/chatbot  
+A dedicated, machine readable guide file, is designed to be the one single necessary file for a bot to get to know LLM-Router and to build your code with it.  
 This guide file is **`LLM_READABLE_GUIDE.md`**   
-So, either upload this file to your bot's conversation, or copy the file's content to paste for the bot's context, and it would allow your bot to leverage LLMRouter as it builds code.  
+So, either upload this file to your bot's conversation, or copy the file's content to paste for the bot's context, and it would allow your bot to leverage LLM-Router as it builds code.  
 Note that this machine readable file is super useful in cases that your bot doesn't have access to the internet and can't learn about code libraries it wasn't trained on.  
 More on this guide file in `docs/index.md`  
 
 ## Quick start via Colab
-Start by running `run_ollama_in_colab.ipynb` in [Colab](https://colab.research.google.com/github/LiorGazit/LLMRouter/blob/main/examples/run_ollama_in_colab.ipynb).  
+Start by running `run_ollama_in_colab.ipynb` in [Colab](https://colab.research.google.com/github/LiorGazit/llm_router/blob/main/examples/run_ollama_in_colab.ipynb).  
 
 ## Codebase Structure  
-LLMRouter/  
+llm_router/  
 ├─ .github/  
 │  └─ workflows/  
 │     └─ ci.yml  
 ├─ docs/  
 │  └─ index.md  
 ├─ examples/  
-│  ├─ quickstart_local.ipynb  
-│  └─ quickstart_remote_openai.ipynb  
+│  ├─ quick_run_llm_router.py  
+│  └─ run_ollama_in_colab.ipynb  
 ├─ src/  
-│  └─ llmrouter/  
+│  └─ llm_router/  
 │     ├─ __init__.py  
-│     ├─ version.py  
-│     ├─ init_llm.py  
-│     └─ monitor_resources.py  
+│     ├─ init_llm.py   
+│     ├─ monitor_resources.py  
+│     └─ version.py   
 ├─ tests/  
 │  ├─ test_init_llm.py  
 │  ├─ test_llm_readable_guide.py  
@@ -64,14 +84,14 @@ Where:
 
 ## Quick setting up  
 1. Install from GitHub    
-`pip install git+https://github.com/LiorGazit/LLMRouter.git`  
+`pip install git+https://github.com/LiorGazit/llm_router.git`  
 
 2. Try it  
     ```python
-    from llmrouter import init_llm, start_resource_monitoring
+    from llm_router import init_llm, start_resource_monitoring
     from langchain_core.prompts import ChatPromptTemplate
 
-    model = init_llm(model="gemma3", provider="ollama")
+    model = init_llm(model="gemma3:1b", provider="ollama")
     # Or:
     # os.environ["OPENAI_API_KEY"] = "sk-..."
     # model = init_llm(chosen_llm="gpt-4o", provider="openai")

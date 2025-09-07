@@ -3,7 +3,7 @@ import pathlib
 
 
 def test_public_api_in_guide():
-    pkg = importlib.import_module("llmrouter")
+    pkg = importlib.import_module("llm_router")
     public_api = getattr(pkg, "__all__", [])
     guide_path = pathlib.Path(__file__).resolve().parents[1] / "LLM_READABLE_GUIDE.md"
     guide_text = guide_path.read_text(encoding="utf-8")

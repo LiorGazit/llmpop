@@ -1,4 +1,4 @@
-# Contributing to LLMRouter
+# Contributing to LLM-Router
 
 Thanks for your interest in contributing 🎉
 This guide explains how to set up your environment, follow coding standards, and submit pull requests.
@@ -10,8 +10,8 @@ This guide explains how to set up your environment, follow coding standards, and
 1. **Fork & clone the repo:**
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/LLMRouter.git
-   cd LLMRouter
+   git clone https://github.com/YOUR_USERNAME/llm_router.git
+   cd llm_router
    ```
 
 2. **Create a virtual environment (recommended):**
@@ -62,8 +62,8 @@ Before you commit, please follow this checklist to keep the codebase clean, cons
 
 1. **Code & Public API**
 
-   * Implement your changes in `src/llmrouter/...`.
-   * Export new/renamed public functions in `src/llmrouter/__init__.py` via `__all__`.
+   * Implement your changes in `src/llm_router/...`.
+   * Export new/renamed public functions in `src/llm_router/__init__.py` via `__all__`.
    * If you added dependencies, update `pyproject.toml`.
 
 2. **LLM\_READABLE\_GUIDE.md**
@@ -191,4 +191,4 @@ These are enforced in CI and via [pre-commit hooks](.pre-commit-config.yaml).
 
 ---
 
-By following this guide, you’ll help keep **LLMRouter** stable, consistent, and chatbot-friendly 🙏
+By following this guide, you’ll help keep **LLM-Router** stable, consistent, and chatbot-friendly 🙏
