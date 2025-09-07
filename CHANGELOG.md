@@ -11,8 +11,10 @@ The format is based on Keep a Changelog and this project adheres to Semantic Ver
   - **repo name**: `llmpop`
   - **docs branding**: **LLMPop**
 - Updated all imports, docs, tests, and guides to reflect the new name.
-- Maintained same API (`init_llm`, `start_resource_monitoring`).
+- Maintained same API (`init_llm`, `start_resource_monitoring`).  
 
+### Published
+- Released **llmpop 0.2.2** to PyPI.
 
 
 ## [0.2.1] - 2025-09-05

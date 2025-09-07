@@ -1,5 +1,6 @@
 # Dev Log
 ### 2025-09-07 — Project Rename to LLMPop
+- Published **llmpop 0.2.2** to PyPI.
 - Changed distribution and import name from `llm_router` → `llmpop`.
 - Motivation: PyPI conflict (`llm-router` already taken) and desire for a distinctive, memorable brand.
 - Branding conventions:

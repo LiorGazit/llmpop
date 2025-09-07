@@ -1,12 +1,12 @@
 # LLMPop
 The Python library that lets you spin up any LLM with a single function.  
-**Why did we need this library:**  
+#### Why did we need this library:    
 1. Needed a single simple command for any LLM, including the free local LLMs that Ollama offers.  
 2. Needed a better way for introducing a code library to a LLM that helps you build code. The `llmpop` library comes with a machine-readable file that is minimal and sufficent, see `LLM_READABLE_GUIDE.md`. 
    Add it to your conversation with the coding LLM and it will learn how to build code with `llmpop`. From a security aspect, this approach is safer then directing your LLM to read someone's entire codebase.  
 
 ### Devs: [Lior Gazit](https://github.com/LiorGazit), and GPT5  
-*Total hours spent in total on this project so far: `14 hours`   
+Total hours spent in total on this project so far: `17 hours`   
 
 ### Quick run of LLMPop:  
 Quickest on Colab:  
@@ -53,6 +53,7 @@ llmpop/
 ├─ docs/  
 │  └─ index.md  
 ├─ examples/  
+│  ├─ quick_run_llmpop.ipynb  
 │  ├─ quick_run_llmpop.py  
 │  └─ run_ollama_in_colab.ipynb  
 ├─ src/  
@@ -60,6 +61,7 @@ llmpop/
 │     ├─ __init__.py  
 │     ├─ init_llm.py   
 │     ├─ monitor_resources.py  
+│     ├─ py.typed  
 │     └─ version.py   
 ├─ tests/  
 │  ├─ test_init_llm.py  
