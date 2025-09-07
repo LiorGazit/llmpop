@@ -48,14 +48,14 @@ llm_router/
 ├─ docs/  
 │  └─ index.md  
 ├─ examples/  
-│  ├─ quickstart_local.ipynb  
-│  └─ quickstart_remote_openai.ipynb  
+│  ├─ quick_run_llm_router.py  
+│  └─ run_ollama_in_colab.ipynb  
 ├─ src/  
 │  └─ llm_router/  
 │     ├─ __init__.py  
-│     ├─ version.py  
-│     ├─ init_llm.py  
-│     └─ monitor_resources.py  
+│     ├─ init_llm.py   
+│     ├─ monitor_resources.py  
+│     └─ version.py   
 ├─ tests/  
 │  ├─ test_init_llm.py  
 │  ├─ test_llm_readable_guide.py  
@@ -91,7 +91,7 @@ Where:
     from llm_router import init_llm, start_resource_monitoring
     from langchain_core.prompts import ChatPromptTemplate
 
-    model = init_llm(model="gemma3", provider="ollama")
+    model = init_llm(model="gemma3:1b", provider="ollama")
     # Or:
     # os.environ["OPENAI_API_KEY"] = "sk-..."
     # model = init_llm(chosen_llm="gpt-4o", provider="openai")
