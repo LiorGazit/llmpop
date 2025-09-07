@@ -21,7 +21,7 @@ It also includes utilities for monitoring system resource usage while your model
 ### From GitHub (latest):
 
 ```bash
-pip install git+https://github.com/LiorGazit/llmpop.git
+pip -q install llmpop
 ```
 
 ---

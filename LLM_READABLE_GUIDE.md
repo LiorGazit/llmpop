@@ -1,7 +1,7 @@
 # LLMPop — One-File Guide (for Chatbots & Humans)
 
 **Purpose:** single file to copy-paste into chatbots.  
-**Install:** `pip install git+https://github.com/LiorGazit/llmpop.git`
+**Install:** `pip -q install llmpop`
 
 ## Quickstart — Ollama (local)
 ```python

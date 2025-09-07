@@ -16,7 +16,7 @@ Quickest on Colab:
 Or if you want to set it up yourself, pick the free `T4 GPU`, and copy code over:    
 ```python
 print("Installing llmpop:")
-%pip -q install git+https://github.com/LiorGazit/llmpop.git 
+%pip -q install llmpop 
 print("Done installing llmpop.\n")
 from llmpop import init_llm, start_resource_monitoring
 from langchain_core.prompts import ChatPromptTemplate
@@ -89,7 +89,7 @@ Where:
 
 ## Quick setting up  
 1. Install from GitHub    
-`pip install git+https://github.com/LiorGazit/llmpop.git`  
+`pip -q install llmpop`  
 
 2. Try it  
     ```python
