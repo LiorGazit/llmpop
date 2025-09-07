@@ -9,7 +9,11 @@ The Python library that lets you spin up any LLM with a single function.
 *Total hours spent in total on this project so far: `14 hours`   
 
 ### Quick run of LLM-Router:  
-Quickest on Colab (In Edit, pick the free `T4 GPU`), just copy and paste:  
+Quickest on Colab:  
+<a target="_blank" href="https://colab.research.google.com/github/LiorGazit/llm_router/blob/main/examples/quick_run_llm_router.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>  
+Or if you want to set it up yourself, pick the free `T4 GPU`, and copy code over:    
 ```python
 print("Installing llm_router:")
 %pip -q install git+https://github.com/LiorGazit/llm_router.git 
@@ -17,11 +21,12 @@ print("Done installing llm_router.\n")
 from llm_router import init_llm, start_resource_monitoring
 from langchain_core.prompts import ChatPromptTemplate
 
-# Spinning up OpenAI's free GPT-OSS-20B, give it a few minutes, it's worth it:
+# Spinning up OpenAI's free GPT-OSS-20B, give it a few minutes, it's worth it.
+# If you want a quick LLM, set model="llama3.2:1b".
 model = init_llm(model="gpt-oss:20b", provider="ollama")
-
 prompt = ChatPromptTemplate.from_template("Q: {q}\nA:")
-print((prompt | model).invoke({"q":"What OS is better for deploying high scale programs in production? Linux, or Windows?"}).content)
+user_prompt = "What OS is better for deploying high scale programs in production? Linux, or Windows?"
+print((prompt | model).invoke({"q":user_prompt}).content)
 ```
 
 ## Features
