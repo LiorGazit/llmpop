@@ -3,6 +3,18 @@ All notable changes to this project will be documented here.
 
 The format is based on Keep a Changelog and this project adheres to Semantic Versioning.
 
+## [Unreleased]
+### Changed
+- Renamed project/package from `llm_router` → `llmpop`.
+  - **PyPI name**: `llmpop`
+  - **import name**: `llmpop`
+  - **repo name**: `llmpop`
+  - **docs branding**: **LLMPop**
+- Updated all imports, docs, tests, and guides to reflect the new name.
+- Maintained same API (`init_llm`, `start_resource_monitoring`).
+
+
+
 ## [0.2.1] - 2025-09-05
 ### Added
 - `verbose` flag to `init_llm()` to allow users to minimize output.
