@@ -3,7 +3,7 @@ All notable changes to this project will be documented here.
 
 The format is based on Keep a Changelog and this project adheres to Semantic Versioning.
 
-## [Unreleased]
+## [0.2.2] - 2025-09-07
 ### Changed
 - Renamed project/package from `llm_router` → `llmpop`.
   - **PyPI name**: `llmpop`
