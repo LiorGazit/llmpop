@@ -7,9 +7,8 @@
 from llmpop import init_llm, start_resource_monitoring
 from langchain_core.prompts import ChatPromptTemplate
 
-# Spinning up OpenAI's free GPT-OSS-20B, give it a few minutes, it's worth it.
-# If you want a quick LLM, set model="llama3.2:1b".
-model = init_llm(model="gpt-oss:20b", provider="ollama")
+# Start with Meta's Llama. If you want a stronger (and bigger) model, try OpenAI's free "gpt-oss:20b":
+model = init_llm(model="llama3.2:1b", provider="ollama")
 prompt = ChatPromptTemplate.from_template("Q: {q}\nA:")
 user_prompt = "What OS is better for deploying high scale programs in production? Linux, or Windows?"
 print((prompt | model).invoke({"q":user_prompt}).content)

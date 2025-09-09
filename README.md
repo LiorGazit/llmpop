@@ -6,7 +6,7 @@ The Python library that lets you spin up any LLM with a single function.
    Add it to your conversation with the coding LLM and it will learn how to build code with `llmpop`. From a security aspect, this approach is safer then directing your LLM to read someone's entire codebase.  
 
 ### Devs: [Lior Gazit](https://github.com/LiorGazit), and GPT5  
-Total hours spent in total on this project so far: `17 hours`   
+Total hours spent in total on this project so far: `18 hours`   
 
 ### Quick run of LLMPop:  
 Quickest on Colab:  
@@ -14,16 +14,18 @@ Quickest on Colab:
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>  
 Or if you want to set it up yourself, pick the free `T4 GPU`, and copy code over:    
+**Setup:**  
 ```python
 print("Installing llmpop:")
 %pip -q install llmpop 
 print("Done installing llmpop.\n")
 from llmpop import init_llm, start_resource_monitoring
 from langchain_core.prompts import ChatPromptTemplate
-
-# Spinning up OpenAI's free GPT-OSS-20B, give it a few minutes, it's worth it.
-# If you want a quick LLM, set model="llama3.2:1b".
-model = init_llm(model="gpt-oss:20b", provider="ollama")
+```  
+**Run:**  
+```python
+# Start with Meta's Llama. If you want a stronger (and bigger) model, try OpenAI's free "gpt-oss:20b":
+model = init_llm(model="llama3.2:1b", provider="ollama")
 prompt = ChatPromptTemplate.from_template("Q: {q}\nA:")
 user_prompt = "What OS is better for deploying high scale programs in production? Linux, or Windows?"
 print((prompt | model).invoke({"q":user_prompt}).content)
