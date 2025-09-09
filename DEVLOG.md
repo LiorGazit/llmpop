@@ -1,4 +1,7 @@
 # Dev Log
+### 2025-09-08 - Examples upgrade  
+- Updating the simple example to spin up Llama instead of the open source GPT, for a quicker run.  
+
 ### 2025-09-07 — Project Rename to LLMPop
 - Published **llmpop 0.2.2** to PyPI.
 - Changed distribution and import name from `llm_router` → `llmpop`.
