@@ -30,15 +30,17 @@ pip -q install llmpop
 
 ### Local model with Ollama
 
+**Setup:**  
 ```python
+%pip -q install llmpop 
 from llmpop import init_llm
-
-model = init_llm(chosen_llm="gemma3", local_or_remote="local")
-
-from langchain_core.prompts import ChatPromptTemplate
-prompt = ChatPromptTemplate.from_template("Q: {q}\nA:")
-
-print((prompt | model).invoke({"q": "What is an agent?"}))
+```  
+**Run:**  
+```python
+# Start with Meta's Llama. If you want a stronger (and bigger) model, try OpenAI's free "gpt-oss:20b":
+model = init_llm(model="llama3.2:1b", provider="ollama")
+user_prompt = "What OS is better for deploying high scale programs in production? Linux, or Windows?"
+print(model.invoke(user_prompt).content)
 ```
 
 ### Remote model with OpenAI

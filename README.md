@@ -16,19 +16,15 @@ Quickest on Colab:
 Or if you want to set it up yourself, pick the free `T4 GPU`, and copy code over:    
 **Setup:**  
 ```python
-print("Installing llmpop:")
 %pip -q install llmpop 
-print("Done installing llmpop.\n")
-from llmpop import init_llm, start_resource_monitoring
-from langchain_core.prompts import ChatPromptTemplate
+from llmpop import init_llm
 ```  
 **Run:**  
 ```python
 # Start with Meta's Llama. If you want a stronger (and bigger) model, try OpenAI's free "gpt-oss:20b":
 model = init_llm(model="llama3.2:1b", provider="ollama")
-prompt = ChatPromptTemplate.from_template("Q: {q}\nA:")
 user_prompt = "What OS is better for deploying high scale programs in production? Linux, or Windows?"
-print((prompt | model).invoke({"q":user_prompt}).content)
+print(model.invoke(user_prompt).content)
 ```
 
 ## Features
