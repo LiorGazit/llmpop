@@ -3,6 +3,15 @@ All notable changes to this project will be documented here.
 
 The format is based on Keep a Changelog and this project adheres to Semantic Versioning.
 
+## [0.2.3] – 2025-09-12
+### Fixed
+- Corrected OS compatibility classifiers: now explicitly marked for MacOS and Linux only (removed misleading `OS Independent`).
+- Synced `README.md` as PyPI long description (`readme = { file = "README.md", content-type = "text/markdown" }`).
+
+### Changed
+- Minor packaging metadata updates to improve accuracy on PyPI.
+
+
 ## [0.2.2] - 2025-09-07
 ### Changed
 - Renamed project/package from `llm_router` → `llmpop`.

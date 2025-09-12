@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llmpop"                     
-version = "0.2.2"
+version = "0.2.3"
 description = "The Python library that lets you spin up any LLM with a single function. Route between local and remote LLMs with a unified interface."
 readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.9"
@@ -14,7 +14,8 @@ keywords = ["LLM", "Ollama", "LangChain", "Agents", "OpenAI", "Router"]
 classifiers = [
   "Programming Language :: Python :: 3",
   "License :: OSI Approved :: MIT License",
-  "Operating System :: OS Independent",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: POSIX :: Linux"
 ]
 
 dependencies = [

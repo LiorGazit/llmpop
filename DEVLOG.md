@@ -1,4 +1,10 @@
 # Dev Log
+
+## [0.2.3] – 2025-09-12
+- Updated `pyproject.toml` classifiers to restrict OS support (Linux + MacOS only).
+- Ensured `README.md` is properly linked in metadata for PyPI page rendering.
+- Prepped release bump to 0.2.3.
+
 ### 2025-09-08 - Examples upgrade  
 - Updating the simple example to spin up Llama instead of the open source GPT, for a quicker run.  
 
