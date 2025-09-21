@@ -1,12 +1,12 @@
-# LLMPop
+# [LLMPop](https://pypi.org/project/llmpop/)
 The Python library that lets you spin up any LLM with a single function.  
 #### Why did we need this library:    
 1. Needed a single simple command for any LLM, including the free local LLMs that Ollama offers.  
-2. Needed a better way for introducing a code library to a LLM that helps you build code. The `llmpop` library comes with a machine-readable file that is minimal and sufficent, see `LLM_READABLE_GUIDE.md`. 
+2. Needed a better way for introducing a code library to a LLM that helps you build code. The `llmpop` library comes with a machine-readable file that is minimal and sufficent, see [**`LLM_READABLE_GUIDE.md`**](https://raw.githubusercontent.com/LiorGazit/llmpop/main/LLM_READABLE_GUIDE.md). 
    Add it to your conversation with the coding LLM and it will learn how to build code with `llmpop`. From a security aspect, this approach is safer then directing your LLM to read someone's entire codebase.  
 
 ### Devs: [Lior Gazit](https://github.com/LiorGazit), and GPT5  
-Total hours spent in total on this project so far: `19 hours`   
+Total hours spent in total on this project so far: `20 hours`   
 
 ### Quick run of LLMPop:  
 Quickest on Colab:  
@@ -35,7 +35,7 @@ print(model.invoke(user_prompt).content)
 
 ## Using LLMPop while coding with an LLM/chatbot  
 A dedicated, machine readable guide file, is designed to be the one single necessary file for a bot to get to know LLMPop and to build your code with it.  
-This guide file is **`LLM_READABLE_GUIDE.md`**   
+This guide file is [**`LLM_READABLE_GUIDE.md`**](https://raw.githubusercontent.com/LiorGazit/llmpop/main/LLM_READABLE_GUIDE.md)     
 So, either upload this file to your bot's conversation, or copy the file's content to paste for the bot's context, and it would allow your bot to leverage LLMPop as it builds code.  
 Note that this machine readable file is super useful in cases that your bot doesn't have access to the internet and can't learn about code libraries it wasn't trained on.  
 More on this guide file in `docs/index.md`  
@@ -56,7 +56,7 @@ llmpop/
 │  └─ run_ollama_in_colab.ipynb  
 ├─ src/  
 │  └─ llmpop/  
-│     ├─ __init__.py  
+│     ├─ \_\_init\_\_.py  
 │     ├─ init_llm.py   
 │     ├─ monitor_resources.py  
 │     ├─ py.typed  
