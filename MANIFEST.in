@@ -1,0 +1,7 @@
+# Keep source distribution lean
+prune notebooks
+prune examples
+
+global-exclude *.ipynb
+global-exclude .ipynb_checkpoints
+global-exclude .DS_Store

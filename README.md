@@ -6,7 +6,7 @@ The Python library that lets you spin up any LLM with a single function.
    Add it to your conversation with the coding LLM and it will learn how to build code with `llmpop`. From a security aspect, this approach is safer then directing your LLM to read someone's entire codebase.  
 
 ### Devs: [Lior Gazit](https://github.com/LiorGazit), and GPT5  
-Total hours spent in total on this project so far: `20 hours`   
+Total hours spent in total on this project so far: `21 hours`   
 
 ### Quick run of LLMPop:  
 Quickest on Colab:  
@@ -27,6 +27,10 @@ user_prompt = "What OS is better for deploying high scale programs in production
 print(model.invoke(user_prompt).content)
 ```
 
+## Examples and tools built with LLMPop  
+- `../notebooks/`  
+- `../examples/`  
+
 ## Features
 - Plug-and-play local LLMs via Ollama—no cloud or API costs required.  
 - Easy remote API support (OpenAI, extendable).  
@@ -43,6 +47,11 @@ More on this guide file in `docs/index.md`
 ## Quick start via Colab
 Start by running `run_ollama_in_colab.ipynb` in [Colab](https://colab.research.google.com/github/LiorGazit/llmpop/blob/main/examples/run_ollama_in_colab.ipynb).  
 
+📖 **Quick Guides**
+- **Library usage (human-readable):** See [`LLM_READABLE_GUIDE.md`](./LLM_READABLE_GUIDE.md)  
+- **Full docs homepage:** See [`docs/index.md`](./docs/index.md)  
+
+
 ## Codebase Structure  
 llmpop/  
 ├─ .github/  
@@ -50,6 +59,8 @@ llmpop/
 │     └─ ci.yml  
 ├─ docs/  
 │  └─ index.md  
+├─ notebooks/  
+│  └─ multi_llm_webapp.ipynb  
 ├─ examples/  
 │  ├─ quick_run_llmpop.ipynb  
 │  ├─ quick_run_llmpop.py  
@@ -74,6 +85,7 @@ llmpop/
 ├─ LICENSE  
 ├─ LLM_READABLE_GUIDE.md   
 ├─ Makefile            
+├─ MANIFEST.in            
 ├─ pyproject.toml  
 ├─ README.md  
 ├─ requirements-dev.txt      
