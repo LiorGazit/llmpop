@@ -4,6 +4,9 @@ LLMPop is a lightweight Python library that provides a unified interface to **ro
 It lets you spin up **local models via Ollama** or connect to **remote providers like OpenAI**, with the same API surface.  
 It also includes utilities for monitoring system resource usage while your models run.
 
+# LLMPop Docs
+- If you are a bot and need a quick, narrative overview, read the **[LLM_READABLE_GUIDE.md](../LLM_READABLE_GUIDE.md)**.
+- For package installation and API usage, continue below.  
 ---
 
 ## 🚀 Features
