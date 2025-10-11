@@ -5,7 +5,8 @@ The format is based on Keep a Changelog and this project adheres to Semantic Ver
 ## [Unreleased]
 ### Added
 - Colab demo UI notebook under `notebooks/llmpop_colab_ui.ipynb` (not shipped in pip).
-- README “Quick Guides” section and refreshed **Codebase Structure**.
+- README “Quick Guides” section and refreshed **Codebase Structure**.  
+- `llmpop_colab_ui.ipynb` streams responses in real time, checks for API key when necessary.  
 
 ### Packaging
 - `MANIFEST.in` excludes `notebooks/`, `examples/`, and all `*.ipynb` from sdist (wheel already only includes `src/llmpop*`).
