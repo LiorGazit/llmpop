@@ -6,7 +6,7 @@ The Python library that lets you spin up any LLM with a single function.
    Add it to your conversation with the coding LLM and it will learn how to build code with `llmpop`. From a security aspect, this approach is safer then directing your LLM to read someone's entire codebase.  
 
 ### Devs: [Lior Gazit](https://github.com/LiorGazit), and GPT5  
-Total hours spent in total on this project so far: `22 hours`   
+Total hours spent in total on this project so far: `23 hours`   
 
 ### Quick run of LLMPop:  
 Quickest on Colab:  

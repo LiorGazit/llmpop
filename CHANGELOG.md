@@ -4,9 +4,10 @@ All notable changes to this project will be documented here.
 The format is based on Keep a Changelog and this project adheres to Semantic Versioning.
 ## [Unreleased]
 ### Added
-- Colab demo UI notebook under `notebooks/llmpop_colab_ui.ipynb` (not shipped in pip).
+- Colab demo UI notebook under `notebooks/multi_llm_webapp.ipynb` (not shipped in pip).
 - README “Quick Guides” section and refreshed **Codebase Structure**.  
-- `llmpop_colab_ui.ipynb` streams responses in real time, checks for API key when necessary.  
+- `multi_llm_webapp.ipynb` streams responses in real time, checks for API key when necessary.  
+- `multi_llm_webapp.ipynb` now has no unnecessary output. Just prints out the url for opening the UI and that's it.  
 
 ### Packaging
 - `MANIFEST.in` excludes `notebooks/`, `examples/`, and all `*.ipynb` from sdist (wheel already only includes `src/llmpop*`).
