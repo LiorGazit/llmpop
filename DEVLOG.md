@@ -1,4 +1,11 @@
 # Dev Log
+## [Unreleased]
+- Added Colab demo UI notebook (Gradio front end). Intention: showcase LLMPop without bundling UI into library.
+- Packaging tightened: ensure notebooks/examples are not in sdist; wheel unaffected (src-only).
+- Docs pass: README “Quick Guides,” updated folder tree; docs index points to human-readable guide.
+- The UI notebook `multi_llm_webapp.ipynb` now streams the LLM responses in real time.   
+- The UI notebook now checks for the case the the user picked a remote LLM but did not insert an API key.  
+- - `multi_llm_webapp.ipynb` now has no unnecessary output. Just prints out the url for opening the UI and that's it.  
 
 ## [0.2.3] – 2025-09-12
 - Updated `pyproject.toml` classifiers to restrict OS support (Linux + MacOS only).

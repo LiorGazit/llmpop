@@ -48,4 +48,4 @@ Homepage = "https://github.com/LiorGazit/llmpop"
 Issues = "https://github.com/LiorGazit/llmpop/issues"
 
 [tool.ruff]
-exclude = ["examples/*.ipynb", ".venv", "build", "dist"]
+exclude = ["examples/*.ipynb", "notebooks/*.ipynb", ".venv", "build", "dist"]

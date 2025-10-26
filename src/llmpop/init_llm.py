@@ -173,7 +173,8 @@ def init_llm(
         )
         ChatOllama = getattr(lc_ollama_mod, "ChatOllama")
 
-        print("All done setting up Ollama (ChatOllama).\n")
+        if verbose:
+            print("All done setting up Ollama (ChatOllama).\n")
         return ChatOllama(
             model=model, base_url=f"http://{host}:{port}", **chat_init_kwargs
         )
@@ -189,7 +190,8 @@ def init_llm(
         # Resolve credentials (no prompting; precedence: explicit > env)
         api_key = _resolve_openai_api_key(provider_kwargs.get("api_key"))
 
-        print("All done setting up OpenAI (ChatOpenAI).\n")
+        if verbose:
+            print("All done setting up OpenAI (ChatOpenAI).\n")
         return ChatOpenAI(model=model, api_key=api_key, **chat_init_kwargs)
 
     else:
