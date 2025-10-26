@@ -1,5 +1,12 @@
 # Dev Log
 ## [Unreleased]
+
+## [0.3.0] – 2025-10-26
+- Colab demo UI notebook (Gradio front end), stream responses, API-key check.
+- Packaging excludes notebooks/examples.
+- Docs refresh: README Quick Guides + structure; docs index ↔ guide linking.
+
+
 - Added Colab demo UI notebook (Gradio front end). Intention: showcase LLMPop without bundling UI into library.
 - Packaging tightened: ensure notebooks/examples are not in sdist; wheel unaffected (src-only).
 - Docs pass: README “Quick Guides,” updated folder tree; docs index points to human-readable guide.
