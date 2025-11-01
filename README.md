@@ -6,7 +6,7 @@ The Python library that lets you spin up any LLM with a single function.
    Add it to your conversation with the coding LLM and it will learn how to build code with `llmpop`. From a security aspect, this approach is safer then directing your LLM to read someone's entire codebase.  
 
 ### Devs: [Lior Gazit](https://github.com/LiorGazit), and GPT5  
-Total hours spent in total on this project so far: `23 hours`   
+Total hours spent in total on this project so far: `25 hours`   
 
 ### Quick run of LLMPop:  
 Quickest on Colab:  
@@ -30,6 +30,10 @@ print(model.invoke(user_prompt).content)
 ## Examples and tools built with LLMPop  
 - `../notebooks/`  
 - `../examples/`  
+
+Specifically check out the Colab demo UI notebook under `notebooks/multi_llm_webapp.ipynb`.  
+That notebook is a minimal “click, pick, and prompt” UI for LLMPop that lets you select up to four models and compare their replies side by side.  
+It runs entirely free in your free Google Colab session and auto-handles local models via Ollama (no local installs on your machine).  
 
 ## Features
 - Plug-and-play local LLMs via Ollama—no cloud or API costs required.  
@@ -121,5 +125,8 @@ Where:
     ```python
     monitor_thread = start_resource_monitoring(duration=600, interval=10)
     ```
+
+Note: LLMPop wraps and depends on third-party open-source libraries (LangChain, Ollama, etc.).
+These are licensed separately and are not included in LLMPop’s distribution.  
 
 Enjoy!
