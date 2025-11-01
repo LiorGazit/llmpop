@@ -1,5 +1,9 @@
 # Dev Log
-## [Unreleased]
+## [Unreleased]  
+
+
+## [0.3.1] – 2025-10-26
+- Asserting specific packages versions for notebooks/multi_llm_webapp.ipynb.
 
 ## [0.3.0] – 2025-10-26
 - Colab demo UI notebook (Gradio front end), stream responses, API-key check.

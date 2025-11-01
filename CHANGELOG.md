@@ -3,6 +3,9 @@ All notable changes to this project will be documented here.
 
 ## [Unreleased]
 
+## [0.3.1] – 2025-10-26
+- Asserting specific packages versions for notebooks/multi_llm_webapp.ipynb.
+
 The format is based on Keep a Changelog and this project adheres to Semantic Versioning.
 ## [0.3.0] – 2025-10-26
 ### Added
