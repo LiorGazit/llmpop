@@ -1,8 +1,10 @@
 # init_llm.py
 
 import os
+import platform
 import shutil
 import subprocess
+import sys
 from time import sleep
 from typing import Any, Dict, Optional
 
@@ -42,6 +44,81 @@ def _ensure_package(pkg_import: str, pip_name: str, *, verbose: bool = True):
         return __import__(pkg_import, fromlist=["*"])
 
 
+def _command_exists(cmd: str) -> bool:
+    return shutil.which(cmd) is not None
+
+
+def _is_linux() -> bool:
+    return sys.platform.startswith("linux")
+
+
+def _is_windows() -> bool:
+    return sys.platform.startswith("win")
+
+
+def _get_linux_distro_id() -> str:
+    try:
+        return platform.freedesktop_os_release().get("ID", "").lower()
+    except Exception:
+        return ""
+
+
+def _missing_ollama_deps():
+    if not _is_linux():
+        return []
+
+    missing = []
+    if not _command_exists("zstd"):
+        missing.append("zstd")
+    if not _command_exists("lspci"):
+        missing.append("pciutils")
+    return missing
+
+
+def install_ollama_deps(*, verbose: bool = True):
+    if not _is_linux():
+        raise RuntimeError("Ollama system dependencies are only supported on Linux.")
+
+    missing = _missing_ollama_deps()
+    if not missing:
+        if verbose:
+            print("Ollama system dependencies already installed.")
+        return
+
+    distro_id = _get_linux_distro_id()
+    sudo = []
+    if hasattr(os, "geteuid") and os.geteuid() != 0 and _command_exists("sudo"):
+        sudo = ["sudo"]
+
+    if "ubuntu" in distro_id or "debian" in distro_id:
+        cmds = [
+            sudo + ["apt-get", "update"],
+            sudo + ["apt-get", "install", "-y", "zstd", "pciutils"],
+        ]
+    elif "fedora" in distro_id or "rhel" in distro_id or "centos" in distro_id:
+        cmds = [sudo + ["dnf", "install", "-y", "zstd", "pciutils"]]
+    elif "arch" in distro_id:
+        cmds = [sudo + ["pacman", "-S", "--noconfirm", "zstd", "pciutils"]]
+    else:
+        deps_str = ", ".join(missing)
+        raise RuntimeError(
+            "Missing system dependencies for Ollama: "
+            f"{deps_str}. Unsupported distro '{distro_id or 'unknown'}'. "
+            "Install zstd and pciutils with your package manager."
+        )
+
+    if verbose:
+        deps_str = ", ".join(missing)
+        print(f"Installing system dependencies for Ollama: {deps_str}")
+    for cmd in cmds:
+        res = subprocess.run(cmd, capture_output=True, text=True)
+        if res.returncode != 0:
+            deps_str = ", ".join(missing)
+            raise RuntimeError(
+                f"Error installing system dependencies ({deps_str}): {res.stderr}"
+            )
+
+
 def _resolve_openai_api_key(explicit_key: Optional[str]) -> str:
     """Resolve OpenAI API key with precedence: explicit > env var."""
     if explicit_key:
@@ -75,15 +152,15 @@ def init_llm(
         Provider-specific configuration. Examples:
           - provider="ollama":
               {
-                "host": "127.0.0.1",  # default
-                "port": 11434,        # default
-                "auto_install": True, # default
-                "auto_serve": True,   # default
-                "pull": True          # default
+                "host": "127.0.0.1",   # default
+                "port": 11434,         # default
+                "auto_install": True,  # default
+                "auto_serve": True,    # default
+                "pull": True           # default
               }
           - provider="openai":
               {
-                "api_key": "...",     # else taken from OPENAI_API_KEY env var
+                "api_key": "...",  # else taken from OPENAI_API_KEY env var
               }
     verbose : bool, optional
         If True (default), print progress messages; errors are always raised.
@@ -107,12 +184,26 @@ def init_llm(
     provider_kwargs = dict(provider_kwargs or {})
 
     if provider == "ollama":
+        if _is_windows():
+            raise RuntimeError(
+                "Ollama is not supported on Windows. Use Linux/macOS or choose "
+                "a remote LLM provider (e.g., OpenAI)."
+            )
+
         # Extract provider settings with sensible defaults
         host = provider_kwargs.get("host", "127.0.0.1")
         port = int(provider_kwargs.get("port", 11434))
         auto_install = bool(provider_kwargs.get("auto_install", True))
         auto_serve = bool(provider_kwargs.get("auto_serve", True))
         do_pull = bool(provider_kwargs.get("pull", True))
+        missing_deps = _missing_ollama_deps()
+        if missing_deps:
+            deps_str = ", ".join(missing_deps)
+            raise RuntimeError(
+                "Missing system dependencies for Ollama: "
+                f"{deps_str}. Run llmpop.install_ollama_deps() first, or install "
+                "zstd and pciutils with your package manager."
+            )
 
         # 1) Ensure Ollama binary exists (if requested)
         if shutil.which("ollama") is None:
@@ -120,7 +211,7 @@ def init_llm(
                 if verbose:
                     print("🚀 Installing Ollama...")
                 install = subprocess.run(
-                    "curl https://ollama.ai/install.sh | sh",
+                    "curl -fsSL https://ollama.com/install.sh | sh",
                     capture_output=True,
                     text=True,
                     shell=True,

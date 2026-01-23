@@ -2,7 +2,8 @@ import builtins
 import types
 import pytest
 
-from llmpop.init_llm import init_llm
+import llmpop.init_llm as init_llm_mod
+from llmpop.init_llm import init_llm, install_ollama_deps
 
 
 def test_remote_openai_requires_key(monkeypatch):
@@ -91,3 +92,40 @@ def test_local_ollama_chat_model(monkeypatch):
     assert model[1]["model"] == "gemma3"
     # The factory passes a base_url to ChatOllama
     assert model[1].get("base_url", "").startswith("http://")
+
+
+def test_local_ollama_missing_deps_instructions(monkeypatch):
+    # Force Linux and missing deps
+    monkeypatch.setattr(init_llm_mod, "_is_linux", lambda: True)
+    monkeypatch.setattr(init_llm_mod, "_command_exists", lambda _: False)
+
+    with pytest.raises(RuntimeError) as excinfo:
+        init_llm(model="gemma3", provider="ollama")
+
+    msg = str(excinfo.value)
+    assert "install_ollama_deps" in msg
+    assert "zstd" in msg
+    assert "pciutils" in msg
+
+
+def test_install_ollama_deps_runs_package_manager(monkeypatch):
+    # Force Linux, missing deps, and Ubuntu
+    monkeypatch.setattr(init_llm_mod, "_is_linux", lambda: True)
+    monkeypatch.setattr(init_llm_mod, "_command_exists", lambda cmd: cmd == "sudo")
+    monkeypatch.setattr(init_llm_mod, "_get_linux_distro_id", lambda: "ubuntu")
+    monkeypatch.setattr(init_llm_mod.os, "geteuid", lambda: 0)
+
+    calls = []
+
+    def fake_run(cmd, capture_output=True, text=True):
+        calls.append(cmd)
+        return types.SimpleNamespace(returncode=0, stderr="", stdout="")
+
+    monkeypatch.setattr(init_llm_mod.subprocess, "run", fake_run)
+    monkeypatch.setattr(
+        init_llm_mod, "_missing_ollama_deps", lambda: ["zstd", "pciutils"]
+    )
+
+    install_ollama_deps(verbose=False)
+    assert calls[0] == ["apt-get", "update"]
+    assert calls[1] == ["apt-get", "install", "-y", "zstd", "pciutils"]

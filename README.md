@@ -17,7 +17,8 @@ Or if you want to set it up yourself, pick the free `T4 GPU`, and copy code over
 **Setup:**  
 ```python
 %pip -q install llmpop 
-from llmpop import init_llm
+from llmpop import init_llm, install_ollama_deps
+install_ollama_deps()
 ```  
 **Run:**  
 ```python
@@ -26,6 +27,7 @@ model = init_llm(model="llama3.2:1b", provider="ollama")
 user_prompt = "What OS is better for deploying high scale programs in production? Linux, or Windows?"
 print(model.invoke(user_prompt).content)
 ```
+
 
 ## Examples and tools built with LLMPop  
 - `../notebooks/`  

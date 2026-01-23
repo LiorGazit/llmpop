@@ -36,7 +36,8 @@ pip -q install llmpop
 **Setup:**  
 ```python
 %pip -q install llmpop 
-from llmpop import init_llm
+from llmpop import init_llm, install_ollama_deps
+install_ollama_deps()
 ```  
 **Run:**  
 ```python
