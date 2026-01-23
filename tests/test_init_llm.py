@@ -1,11 +1,13 @@
 import builtins
+import importlib
 import types
+
 import pytest
 
-import importlib
+from llmpop.init_llm import init_llm, install_ollama_deps
+
 # Note: Throughout this code, the suffix _mod stand for module:
 init_llm_mod = importlib.import_module("llmpop.init_llm")
-from llmpop.init_llm import init_llm, install_ollama_deps
 
 
 def test_remote_openai_requires_key(monkeypatch):
