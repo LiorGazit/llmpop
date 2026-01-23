@@ -1,6 +1,13 @@
 # Dev Log
 ## [Unreleased]  
+-  
 
+## [0.4.0] - 2025-11-01
+- Updated Ollama install script URL to `ollama.com`.
+- Added `install_ollama_deps()` for Linux system dependency setup (zstd, pciutils).
+- `init_llm` now surfaces a clear instruction to run `install_ollama_deps()` when deps are missing.
+- Guarded Ollama on Windows with a direct, actionable error message.
+- README updated with a Colab dependency setup note; tests added for new flows.
 
 ## [0.3.1] – 2025-10-26
 - Asserting specific packages versions for notebooks/multi_llm_webapp.ipynb.

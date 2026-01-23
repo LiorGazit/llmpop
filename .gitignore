@@ -191,3 +191,4 @@ notebook_for_bash_commands.ipynb
 make_release_notebook.ipynb
 =*
 release_pipeline.ipynb
+running_tests_in_colab.ipynb

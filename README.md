@@ -6,7 +6,7 @@ The Python library that lets you spin up any LLM with a single function.
    Add it to your conversation with the coding LLM and it will learn how to build code with `llmpop`. From a security aspect, this approach is safer then directing your LLM to read someone's entire codebase.  
 
 ### Devs: [Lior Gazit](https://github.com/LiorGazit), and GPT5  
-Total hours spent in total on this project so far: `25 hours`   
+Total hours spent in total on this project so far: `28 hours`   
 
 ### Quick run of LLMPop:  
 Quickest on Colab:  
@@ -17,7 +17,8 @@ Or if you want to set it up yourself, pick the free `T4 GPU`, and copy code over
 **Setup:**  
 ```python
 %pip -q install llmpop 
-from llmpop import init_llm
+from llmpop import init_llm, install_ollama_deps
+install_ollama_deps()
 ```  
 **Run:**  
 ```python
@@ -26,6 +27,7 @@ model = init_llm(model="llama3.2:1b", provider="ollama")
 user_prompt = "What OS is better for deploying high scale programs in production? Linux, or Windows?"
 print(model.invoke(user_prompt).content)
 ```
+
 
 ## Examples and tools built with LLMPop  
 - `../notebooks/`  

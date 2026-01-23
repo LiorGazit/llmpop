@@ -2,6 +2,11 @@
 
 **Purpose:** single file to copy-paste into chatbots.  
 **Install:** `pip -q install llmpop`
+**Install Linux dependencies if necessary:** 
+```python
+import llmpop
+llmpop.install_ollama_deps()
+```
 
 ## Quickstart — Ollama (local)
 ```python

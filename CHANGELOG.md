@@ -2,6 +2,19 @@
 All notable changes to this project will be documented here.
 
 ## [Unreleased]
+-  
+
+## [0.4.0] - 2025-11-01
+### Added
+- `install_ollama_deps()` helper to install Linux system dependencies (zstd, pciutils) for Ollama.
+- Tests covering missing-deps guidance and dependency installer flow.
+
+### Changed
+- Ollama install script URL updated to `ollama.com`.
+- README now documents Colab dependency setup via `install_ollama_deps()`.
+
+### Fixed
+- Ollama provider now fails fast on Windows with a clear, actionable message.
 
 ## [0.3.1] – 2025-10-26
 - Asserting specific packages versions for notebooks/multi_llm_webapp.ipynb.
