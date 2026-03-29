@@ -63,6 +63,32 @@ def _get_linux_distro_id() -> str:
         return ""
 
 
+def _ollama_cli_env(host: str, port: int) -> Dict[str, str]:
+    env = os.environ.copy()
+    env["OLLAMA_HOST"] = f"{host}:{port}"
+    return env
+
+
+def _ollama_model_exists(model: str, host: str, port: int) -> bool:
+    res = subprocess.run(
+        ["ollama", "list"],
+        capture_output=True,
+        text=True,
+        env=_ollama_cli_env(host, port),
+    )
+    if res.returncode != 0:
+        raise RuntimeError(f"Error listing Ollama models: {res.stderr}")
+
+    installed_models = set()
+    for line in res.stdout.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.lower().startswith("name "):
+            continue
+        installed_models.add(stripped.split()[0])
+
+    return model in installed_models or f"{model}:latest" in installed_models
+
+
 def _missing_ollama_deps():
     if not _is_linux():
         return []
@@ -140,7 +166,7 @@ def init_llm(
     **chat_init_kwargs: Any,
 ):
     """
-    Create and return a LangChain **ChatModel** for the given provider.
+    Create and return a LangChain ChatModel for the given provider.
 
     Parameters
     ----------
@@ -156,7 +182,7 @@ def init_llm(
                 "port": 11434,         # default
                 "auto_install": True,  # default
                 "auto_serve": True,    # default
-                "pull": True           # default
+                "pull": True           # default; skips when model already exists
               }
           - provider="openai":
               {
@@ -178,7 +204,7 @@ def init_llm(
     -----
     - No interactive prompts are used for credentials. Provide keys via provider_kwargs or env vars.
     - Secrets are never logged.
-    - Returns a **ChatModel** so downstream `chain.invoke(...)` consistently yields an AIMessage.
+    - Returns a ChatModel so downstream `chain.invoke(...)` consistently yields an AIMessage.
     """
     provider = (provider or "").strip().lower()
     provider_kwargs = dict(provider_kwargs or {})
@@ -209,7 +235,7 @@ def init_llm(
         if shutil.which("ollama") is None:
             if auto_install:
                 if verbose:
-                    print("🚀 Installing Ollama...")
+                    print("Installing Ollama...")
                 install = subprocess.run(
                     "curl -fsSL https://ollama.com/install.sh | sh",
                     capture_output=True,
@@ -227,7 +253,7 @@ def init_llm(
         # 2) Start Ollama serve (if requested)
         if auto_serve:
             if verbose:
-                print("🚀 Starting Ollama server...")
+                print("Starting Ollama server...")
             serve_cmd = f"OLLAMA_HOST={host}:{port} ollama serve > serve.log 2>&1 &"
             proc = subprocess.Popen(
                 serve_cmd,
@@ -236,27 +262,31 @@ def init_llm(
                 shell=True,
             )
             if verbose:
-                print(f"→ Ollama PID: {proc.pid}")
+                print(f"Ollama PID: {proc.pid}")
 
-            # 3) Wait until it’s ready
+            # 3) Wait until it is ready
             if verbose:
-                print("⏳ Waiting for Ollama to be ready…")
+                print("Waiting for Ollama to be ready...")
             wait_for_ollama_ready(host=host, port=port)
             if verbose:
                 print("Ready!\n")
 
-        # 4) Pull the requested model (if requested)
+        # 4) Pull the requested model only when it is not already installed
         if do_pull:
-            if verbose:
-                print(f"🚀 Pulling model '{model}'…")
-            pull = subprocess.run(
-                f"ollama pull {model}",
-                capture_output=True,
-                text=True,
-                shell=True,
-            )
-            if pull.returncode != 0:
-                raise RuntimeError(f"Error pulling '{model}': {pull.stderr}")
+            if _ollama_model_exists(model, host, port):
+                if verbose:
+                    print(f"Model '{model}' is already available locally. Skipping pull.")
+            else:
+                if verbose:
+                    print(f"Pulling model '{model}'...")
+                pull = subprocess.run(
+                    ["ollama", "pull", model],
+                    capture_output=True,
+                    text=True,
+                    env=_ollama_cli_env(host, port),
+                )
+                if pull.returncode != 0:
+                    raise RuntimeError(f"Error pulling '{model}': {pull.stderr}")
 
         # 5) Ensure ChatOllama is available
         lc_ollama_mod = _ensure_package(
@@ -272,7 +302,7 @@ def init_llm(
 
     elif provider == "openai":
         if verbose:
-            print("🚀 Setting up remote OpenAI chat model…")
+            print("Setting up remote OpenAI chat model...")
 
         # Ensure ChatOpenAI is available
         lc_openai_mod = _ensure_package("langchain_openai", "langchain-openai")

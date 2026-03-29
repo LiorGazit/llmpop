@@ -33,7 +33,7 @@ def test_remote_openai_with_key(monkeypatch):
 
     monkeypatch.setattr(builtins, "__import__", fake_import)
 
-    # Also ensure env var won't interfere
+    # Also ensure env var will not interfere
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
 
     model = init_llm(
@@ -50,34 +50,31 @@ def test_remote_openai_with_key(monkeypatch):
 
 
 def test_local_ollama_chat_model(monkeypatch):
-    # Ensure we don’t actually call curl/ollama
     import subprocess
     import shutil
     import requests
 
-    # Pretend ollama binary exists
+    monkeypatch.setattr(init_llm_mod, "_is_windows", lambda: False)
     monkeypatch.setattr(shutil, "which", lambda _: "/usr/bin/ollama")
-
-    # Starting server returns a fake process with pid
     monkeypatch.setattr(
         subprocess, "Popen", lambda *a, **k: types.SimpleNamespace(pid=12345)
     )
-
-    # Ollama readiness check succeeds
     monkeypatch.setattr(
         requests, "get", lambda url: types.SimpleNamespace(status_code=200)
     )
 
-    # Any subprocess.run (pull/list/etc.) succeeds
-    monkeypatch.setattr(
-        subprocess,
-        "run",
-        lambda *a, **k: types.SimpleNamespace(
-            returncode=0, stderr="", stdout="gemma3\n"
-        ),
-    )
+    calls = []
 
-    # Mock langchain_ollama.chat_models import
+    def fake_run(cmd, *args, **kwargs):
+        calls.append(cmd)
+        return types.SimpleNamespace(
+            returncode=0,
+            stderr="",
+            stdout="NAME ID SIZE MODIFIED\ngemma3:latest abc 1GB now\n",
+        )
+
+    monkeypatch.setattr(subprocess, "run", fake_run)
+
     fake_mod = types.SimpleNamespace(ChatOllama=lambda **kw: ("CHAT_OLLAMA", kw))
     import builtins as _b
 
@@ -91,15 +88,62 @@ def test_local_ollama_chat_model(monkeypatch):
     monkeypatch.setattr(_b, "__import__", fake_import)
 
     model = init_llm(model="gemma3", provider="ollama")
-    # Our fake ChatOllama returns a tuple ("CHAT_OLLAMA", kwargs)
     assert isinstance(model, tuple) and model[0] == "CHAT_OLLAMA"
     assert model[1]["model"] == "gemma3"
-    # The factory passes a base_url to ChatOllama
     assert model[1].get("base_url", "").startswith("http://")
+    assert calls == [["ollama", "list"]]
+
+
+def test_local_ollama_pulls_when_model_missing(monkeypatch):
+    import subprocess
+    import shutil
+    import requests
+
+    monkeypatch.setattr(init_llm_mod, "_is_windows", lambda: False)
+    monkeypatch.setattr(shutil, "which", lambda _: "/usr/bin/ollama")
+    monkeypatch.setattr(
+        subprocess, "Popen", lambda *a, **k: types.SimpleNamespace(pid=12345)
+    )
+    monkeypatch.setattr(
+        requests, "get", lambda url: types.SimpleNamespace(status_code=200)
+    )
+
+    calls = []
+
+    def fake_run(cmd, *args, **kwargs):
+        calls.append(cmd)
+        if cmd == ["ollama", "list"]:
+            return types.SimpleNamespace(
+                returncode=0,
+                stderr="",
+                stdout="NAME ID SIZE MODIFIED\nother-model:latest abc 1GB now\n",
+            )
+        if cmd == ["ollama", "pull", "gemma3"]:
+            return types.SimpleNamespace(returncode=0, stderr="", stdout="")
+        pytest.fail(f"Unexpected command: {cmd}")
+
+    monkeypatch.setattr(subprocess, "run", fake_run)
+
+    fake_mod = types.SimpleNamespace(ChatOllama=lambda **kw: ("CHAT_OLLAMA", kw))
+    import builtins as _b
+
+    old_import = _b.__import__
+
+    def fake_import(name, *args, **kwargs):
+        if name == "langchain_ollama.chat_models":
+            return fake_mod
+        return old_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(_b, "__import__", fake_import)
+
+    model = init_llm(model="gemma3", provider="ollama")
+    assert isinstance(model, tuple) and model[0] == "CHAT_OLLAMA"
+    assert calls == [["ollama", "list"], ["ollama", "pull", "gemma3"]]
 
 
 def test_local_ollama_missing_deps_instructions(monkeypatch):
     # Force Linux and missing deps
+    monkeypatch.setattr(init_llm_mod, "_is_windows", lambda: False)
     monkeypatch.setattr(init_llm_mod, "_is_linux", lambda: True)
     monkeypatch.setattr(init_llm_mod, "_command_exists", lambda _: False)
 
@@ -117,7 +161,7 @@ def test_install_ollama_deps_runs_package_manager(monkeypatch):
     monkeypatch.setattr(init_llm_mod, "_is_linux", lambda: True)
     monkeypatch.setattr(init_llm_mod, "_command_exists", lambda cmd: cmd == "sudo")
     monkeypatch.setattr(init_llm_mod, "_get_linux_distro_id", lambda: "ubuntu")
-    monkeypatch.setattr(init_llm_mod.os, "geteuid", lambda: 0)
+    monkeypatch.setattr(init_llm_mod.os, "geteuid", lambda: 0, raising=False)
 
     calls = []
 
