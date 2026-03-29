@@ -65,12 +65,12 @@ llmpop/
 │     └─ ci.yml  
 ├─ docs/  
 │  └─ index.md  
-├─ notebooks/  
-│  └─ multi_llm_webapp.ipynb  
 ├─ examples/  
 │  ├─ quick_run_llmpop.ipynb  
 │  ├─ quick_run_llmpop.py  
 │  └─ run_ollama_in_colab.ipynb  
+├─ notebooks/  
+│  └─ multi_llm_webapp.ipynb  
 ├─ src/  
 │  └─ llmpop/  
 │     ├─ \_\_init\_\_.py  
