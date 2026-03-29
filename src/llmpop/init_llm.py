@@ -275,7 +275,9 @@ def init_llm(
         if do_pull:
             if _ollama_model_exists(model, host, port):
                 if verbose:
-                    print(f"Model '{model}' is already available locally. Skipping pull.")
+                    print(
+                        f"Model '{model}' is already available locally. Skipping pull."
+                    )
             else:
                 if verbose:
                     print(f"Pulling model '{model}'...")
