@@ -2,6 +2,13 @@
 ## [Unreleased]  
 -  
 
+## [0.4.1] - 2026-03-28
+- Optimized Ollama initialization in `init_llm()` to check whether a requested local model is already installed before pulling it again.
+- Repeated `init_llm(..., provider="ollama")` calls now skip unnecessary downloads for models that already exist locally.
+- Ollama CLI calls now consistently use the configured `host` and `port` when checking for or pulling models.
+- Added tests covering both the "model already installed" and "model missing, pull required" flows.
+- Bumped package version to `0.4.1` and updated release notes.
+
 ## [0.4.0] - 2025-11-01
 - Updated Ollama install script URL to `ollama.com`.
 - Added `install_ollama_deps()` for Linux system dependency setup (zstd, pciutils).
