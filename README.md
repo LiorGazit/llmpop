@@ -82,7 +82,7 @@ llmpop/
 │  ├─ test_init_llm.py  
 │  ├─ test_llm_readable_guide.py  
 │  └─ test_monitor_resources.py  
-├─ .gitignore  
+├─ .gitignore   
 ├─ .pre-commit-config.yaml  
 ├─ CHANGELOG.md  
 ├─ CODE_OF_CONDUCT.md  
